@@ -4,26 +4,27 @@ import json
 import websockets
 
 
+CLIENTS = set()
+
 async def handler(websocket) -> None:
-  connected = {websocket}
-  connected.add(websocket)
+  CLIENTS.add(websocket)
 
   async for message in websocket:
-    print(f"server received msg: {message}")
 
-    data = json.loads(message)
-    name = data["name"]
-    msg = data["message"]
+    for websocket in CLIENTS:
+      print(f"server received msg: {message}")
 
-    chatObj = {
-      "name": name,
-      "message": msg,
-      "datetime": datetime.datetime.now().strftime("%H:%M:%S")
-    }
+      data = json.loads(message)
+      name = data["name"]
+      msg = data["message"]
 
-    # await websocket.send(json.dumps(chatObj))
-    websockets.broadcast(connected, json.dumps(chatObj))
+      chatObj = {
+        "name": name,
+        "message": msg,
+        "datetime": datetime.datetime.now().strftime("%H:%M:%S")
+      }
 
+      await websocket.send(json.dumps(chatObj))
 
 async def main():
   print("starting server...")
