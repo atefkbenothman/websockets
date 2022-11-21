@@ -8,11 +8,19 @@
 <body>
   <h1>websocket client</h1>
 
+  <label for="nameBox">name:</label>
+  <input type="text" id="nameBox" value="anonymous">
+  <br />
+
   <label for="chatBox">send chat:</label>
   <input type="text" id="chatBox" value="hello">
   <input type="button" value="chat" id="chatBtn">
+  <br />
 
-  <script src="client.js"></script>
+  <div id="chatMessages">
+  </div>
+
+  <script src="client.js" type="module"></script>
 </body>
 
 </html>
