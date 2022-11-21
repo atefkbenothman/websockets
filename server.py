@@ -5,6 +5,9 @@ import websockets
 
 
 async def handler(websocket) -> None:
+  connected = {websocket}
+  connected.add(websocket)
+
   async for message in websocket:
     print(f"server received msg: {message}")
 
@@ -18,7 +21,8 @@ async def handler(websocket) -> None:
       "datetime": datetime.datetime.now().strftime("%H:%M:%S")
     }
 
-    await websocket.send(json.dumps(chatObj))
+    # await websocket.send(json.dumps(chatObj))
+    websockets.broadcast(connected, json.dumps(chatObj))
 
 
 async def main():
