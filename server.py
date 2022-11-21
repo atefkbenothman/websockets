@@ -3,8 +3,7 @@ import websockets
 
 
 async def handler(websocket) -> None:
-  while True:
-    message = await websocket.recv()
+  async for message in websocket:
     print(f"server received msg: {message}")
 
 
