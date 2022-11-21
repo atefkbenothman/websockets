@@ -1,3 +1,3 @@
 # websockets
 
-learning how to websockets work
+learning how websockets work
